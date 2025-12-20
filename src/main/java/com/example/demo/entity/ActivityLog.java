@@ -16,6 +16,9 @@ public class ActivityLog{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;      
-    
+    private Double quantity;
+    private LocalDateTime activityDate;
+    private LocalDateTime loggedAt;
+    private Double estimatedEmission;
 
 }
