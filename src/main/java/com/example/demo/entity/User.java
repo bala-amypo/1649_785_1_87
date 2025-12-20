@@ -17,4 +17,5 @@ public class StudentDetails{
     private int id;
     private String fullName;
     private String email;
+    private 
 }
