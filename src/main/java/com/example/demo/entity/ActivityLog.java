@@ -14,5 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ActivityLog{
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 
 }
