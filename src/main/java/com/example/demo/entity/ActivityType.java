@@ -8,6 +8,13 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 @Entity
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ActivityType{
+    private Long id;
+    private String typeName;
+    private String unit;
+    @PrePersist
+    private LocalDateTime createdAt;
+}
