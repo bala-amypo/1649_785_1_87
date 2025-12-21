@@ -14,25 +14,21 @@ import com.example.demo.service.UserService;
 @RestController
 public class UserController{
     @Autowired UserService serviceUser;
-    @PostMapping("/api/users/register")
+    @PostMapping("/papi/users/register")
     public User sendData(@RequestBody User stu){
         return serviceUser.registerUser(stu);
     }
     @GetMapping("/api/users/all")
     public List<User> geAllData(){
-        return serviceUser.getData();
+        return serviceUser.getAllUsers();
     }
-    @DeleteMapping("/delete/{id}")
-    public String deleteVal(@PathVariable int id){
-        return serviceUser.deleteData(id);
-    }
-    @GetMapping("/getData/{id}")
+    @GetMapping("/api/users/{id}")
     public User FindVal(@PathVariable int id){
-        return serviceUser.findData(id);
+        return serviceUser.getUser(id);
     }  
-    @PutMapping("/put/{id}")
-    public User UpdateData(@PathVariable int id,@RequestBody User stu){
-            return serviceUser.updateData(id,stu);
+    @Mapping("/put/{id}")
+    public User UpdateData(@PathVariable String email){
+            return serviceUser.getByEmail(email);
     }
 
 }
