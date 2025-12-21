@@ -13,26 +13,26 @@ import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 @RestController
 public class UserController{
-    @Autowired UserService ser;
-    @PostMapping("/post")
+    @Autowired UserService serviceUser;
+    @PostMapping("/api/users/register")
     public User sendData(@RequestBody User stu){
-        return ser.postData(stu);
+        return serviceUser.registerUser(stu);
     }
-    @GetMapping("/get")
+    @GetMapping("/api/users/all")
     public List<User> geAllData(){
-        return ser.getData();
+        return serviceUser.getData();
     }
     @DeleteMapping("/delete/{id}")
     public String deleteVal(@PathVariable int id){
-        return ser.deleteData(id);
+        return serviceUser.deleteData(id);
     }
     @GetMapping("/getData/{id}")
     public User FindVal(@PathVariable int id){
-        return ser.findData(id);
+        return serviceUser.findData(id);
     }  
     @PutMapping("/put/{id}")
     public User UpdateData(@PathVariable int id,@RequestBody User stu){
-            return ser.updateData(id,stu);
+            return serviceUser.updateData(id,stu);
     }
 
 }
