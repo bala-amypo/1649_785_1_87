@@ -7,20 +7,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class ActivityTypeServiceImpl implements ActivityTypeService{
-     @Autowired ActivityTypeRepository student;
+     @Autowired ActivityTypeRepository ActType;
      
           @Override
           public ActivityType createType(ActivityType stu){
-               return student.save(stu);
+               return ActType.save(stu);
           }
           @Override
           public List<ActivityType> getTypesByCategory(){
-               return student.findAll();
+               return ActType.findAll();
           }
           
           @Override
           public ActivityType getType(Long id){
-               return student.findById(id).orElse(null);
+               return ActType.findById(id).orElse(null);
           }
 }
 

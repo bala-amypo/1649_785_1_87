@@ -7,24 +7,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class EmissionFactorServiceImpl implements EmissionFactorService{
-     @Autowired EmissionFactorRepository student;
+     @Autowired EmissionFactorRepository EmissionFact;
      
           @Override
           public EmissionFactor createFactor(EmissionFactor stu){
-               return student.save(stu);
+               return EmissionFact.save(stu);
           }
           @Override
           public List<EmissionFactor> getAllFactors(){
-               return student.findAll();
+               return EmissionFact.findAll();
           }
           
           @Override
           public EmissionFactor getFactor(Long id){
-               return student.findById(id).orElse(null);
+               return EmissionFact.findById(id).orElse(null);
           }
           @Override
           public EmissionFactor getByEmail(String email){
-               return student.findByEmail().orElse(null);
+               return EmissionFact.findByEmail().orElse(null);
           }
 }
 

@@ -7,24 +7,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class ActivityLogServiceImpl implements ActivityLogService{
-     @Autowired ActivityLogRepository student;
+     @Autowired ActivityLogRepository ActLog;
      
           @Override
           public ActivityLog registerActivityLog(ActivityLog stu){
-               return student.save(stu);
+               return ActLog.save(stu);
           }
           @Override
           public List<ActivityLog> getAllActivityLogs(){
-               return student.findAll();
+               return ActLog.findAll();
           }
           
           @Override
           public ActivityLog getActivityLog(Long id){
-               return student.findById(id).orElse(null);
+               return ActLog.findById(id).orElse(null);
           }
           @Override
           public ActivityLog getByEmail(String email){
-               return student.findByEmail().orElse(null);
+               return ActLog.findByEmail().orElse(null);
           }
 }
 
