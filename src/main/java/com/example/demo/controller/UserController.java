@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 @RestController
 public class UserController{
     @Autowired UserService serviceUser;
-    @PostMapping("/papi/users/register")
+    @PostMapping("/api/users/register")
     public User sendData(@RequestBody User stu){
         return serviceUser.registerUser(stu);
     }
@@ -26,7 +25,7 @@ public class UserController{
     public User FindVal(@PathVariable int id){
         return serviceUser.getUser(id);
     }  
-    @Mapping("/put/{id}")
+    @GetMapping("/api/users/{email}")
     public User UpdateData(@PathVariable String email){
             return serviceUser.getByEmail(email);
     }
