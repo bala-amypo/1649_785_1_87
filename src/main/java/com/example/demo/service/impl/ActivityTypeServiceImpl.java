@@ -1,30 +1,26 @@
 package com.example.demo.service.impl;
 import java.util.*;
-import com.example.demo.service.UserService;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.entity.User;
+import com.example.demo.service.ActivityTypeService;
+import com.example.demo.repository.ActivityTypeRepository;
+import com.example.demo.entity.ActivityType;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 @Service
-public class UserServiceImpl implements UserService{
-     @Autowired UserRepository student;
+public class ActivityTypeServiceImpl implements ActivityTypeService{
+     @Autowired ActivityTypeRepository student;
      
           @Override
-          public User registerUser(User stu){
+          public ActivityType createType(ActivityType stu){
                return student.save(stu);
           }
           @Override
-          public List<User> getAllUsers(){
+          public List<ActivityType> getTypesByCategory(){
                return student.findAll();
           }
           
           @Override
-          public User getUser(Long id){
+          public ActivityType getType(Long id){
                return student.findById(id).orElse(null);
-          }
-          @Override
-          public User getByEmail(String email){
-               return student.findByEmail().orElse(null);
           }
 }
 
