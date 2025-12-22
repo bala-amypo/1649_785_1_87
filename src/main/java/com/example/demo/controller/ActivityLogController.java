@@ -25,9 +25,9 @@ public class ActivityLogController{
     public ActivityLog FindVal(@PathVariable Long id){
         return serviceActLog.getActivityLog(id);
     }  
-    @GetMapping("/api/logs/{email}")
-    public ActivityLog UpdateData(@PathVariable String email){
-            return serviceActLog.getByEmail(email);
-    }
+    // @GetMapping("/api/logs/{email}")
+    // public ActivityLog UpdateData(@PathVariable String email){
+    //         return serviceActLog.getByEmail(email);
+    // }
 
 }
