@@ -22,7 +22,7 @@ public class ActivityLogController{
         return serviceActLog.getAllActivityLogs();
     }
     @GetMapping("/api/logs/{id}")
-    public ActivityLog FindVal(@PathVariable int id){
+    public ActivityLog FindVal(@PathVariable Long id){
         return serviceActLog.getActivityLog(id);
     }  
     @GetMapping("/api/logs/{email}")
