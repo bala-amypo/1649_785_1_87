@@ -12,7 +12,7 @@ public class UserServiceImpl implements UserService{
      @Autowired ResourceNotFoundException error;
           @Override
           public User registerUser(User stu){
-               return user.save(stu).orElseThrow(()->error.userNotFound());
+               return user.save(stu);
           }
           @Override
           public List<User> getAllUsers(){
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService{
           
           @Override
           public User getUser(Long id){
-               return user.findById(id).orElse(null);
+               return user.findById(id).orElseThrow(()->error.userNotFound());;
           }
           // @Override
           // public User getByEmail(String email){
