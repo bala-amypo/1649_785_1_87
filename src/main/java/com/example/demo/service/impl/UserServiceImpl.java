@@ -2,16 +2,17 @@ package com.example.demo.service.impl;
 import java.util.*;
 import com.example.demo.service.UserService;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.entity.User;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class UserServiceImpl implements UserService{
      @Autowired UserRepository user;
-     
+     @Autowired ResourceNotFoundException error;
           @Override
           public User registerUser(User stu){
-               return user.save(stu).orElseThrow(()->new ResourceNotFouduserNotFound());
+               return user.save(stu).orElseThrow(()->error.userNotFound());
           }
           @Override
           public List<User> getAllUsers(){
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService{
           // @Override
           // public User getByEmail(String email){
           //      return user.findByEmail().orElse(null);
-          // }
+          //}
 }
 
 
