@@ -3,6 +3,6 @@ import com.example.demo.entity.ActivityCategory;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
-public interface ActivityCategoryRepository extends JpaRepository<ActivityCategory,Integer>{
+public interface ActivityCategoryRepository extends JpaRepository<ActivityCategory,Long>{
 
 }

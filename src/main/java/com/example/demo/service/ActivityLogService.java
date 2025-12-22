@@ -5,5 +5,5 @@ public interface ActivityLogService{
     ActivityLog registerActivityLog(ActivityLog stu);
     List<ActivityLog> getAllActivityLogs();
     ActivityLog getActivityLog(Long id);
-    ActivityLog getByEmail(String email);
+    // ActivityLog getByEmail(String email);
 }

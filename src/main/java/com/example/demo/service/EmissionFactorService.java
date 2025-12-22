@@ -5,5 +5,5 @@ public interface EmissionFactorService{
     EmissionFactor createFactor(EmissionFactor stu);
     List<EmissionFactor> getAllFactors();
     EmissionFactor getFactor(Long id);
-    EmissionFactor getByEmail(String email);
+    // EmissionFactor getByEmail(String email);
 }
