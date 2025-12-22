@@ -11,7 +11,7 @@ public class UserServiceImpl implements UserService{
      
           @Override
           public User registerUser(User stu){
-               return user.save(stu);
+               return user.save(stu).orElseThrow(()->new ResourceNotFouduserNotFound());
           }
           @Override
           public List<User> getAllUsers(){
