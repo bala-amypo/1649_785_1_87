@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class UserServiceImpl implements UserService{
      @Autowired UserRepository user;
-     @Autowired ResourceNotFoundException error;
+     // @Autowired ResourceNotFoundException error;
           @Override
           public User registerUser(User stu){
                return user.save(stu);
