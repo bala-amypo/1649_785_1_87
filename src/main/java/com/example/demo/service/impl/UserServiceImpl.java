@@ -22,10 +22,10 @@ public class UserServiceImpl implements UserService{
           public User getUser(Long id){
                return user.findById(id).orElse(null);
           }
-          @Override
-          public User getByEmail(String email){
-               return user.findByEmail().orElse(null);
-          }
+          // @Override
+          // public User getByEmail(String email){
+          //      return user.findByEmail().orElse(null);
+          // }
 }
 
 

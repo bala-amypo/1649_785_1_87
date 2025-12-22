@@ -22,10 +22,10 @@ public class ActivityLogServiceImpl implements ActivityLogService{
           public ActivityLog getActivityLog(Long id){
                return ActLog.findById(id).orElse(null);
           }
-          @Override
-          public ActivityLog getByEmail(String email){
-               return ActLog.findByEmail().orElse(null);
-          }
+          // @Override
+          // public ActivityLog getByEmail(String email){
+          //      return ActLog.findByEmail().orElse(null);
+          // }
 }
 
 

@@ -18,6 +18,5 @@ public class EmissionFactor{
     private Long id;
     private Double factorValue;
     private String unit;
-    @PrePersist
     private LocalDateTime createdAt;
 }

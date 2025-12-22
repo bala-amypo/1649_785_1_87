@@ -18,6 +18,5 @@ public class ActivityType{
     private Long id;
     private String typeName;
     private String unit;
-    @PrePersist
     private LocalDateTime createdAt;
 }
