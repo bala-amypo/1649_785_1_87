@@ -22,7 +22,7 @@ public class ActivityTypeController{
         return serviceActTyp.getTypesByCategory();
     }
     @GetMapping("/api/types/{id}")
-    public ActivityType FindVal(@PathVariable int id){
+    public ActivityType FindVal(@PathVariable Long id){
         return serviceActTyp.getType(id);
     }  
 

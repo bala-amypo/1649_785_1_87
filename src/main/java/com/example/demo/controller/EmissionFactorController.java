@@ -22,7 +22,7 @@ public class EmissionFactorController{
         return serviceEF.getAllFactors();
     }
     @GetMapping("/api/Factors/{id}")
-    public EmissionFactor FindVal(@PathVariable int id){
+    public EmissionFactor FindVal(@PathVariable Long id){
         return serviceEF.getFactor(id);
     }  
     @GetMapping("/api/Factors/{email}")

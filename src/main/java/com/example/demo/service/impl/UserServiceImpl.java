@@ -7,24 +7,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class UserServiceImpl implements UserService{
-     @Autowired UserRepository student;
+     @Autowired UserRepository user;
      
           @Override
           public User registerUser(User stu){
-               return student.save(stu);
+               return user.save(stu);
           }
           @Override
           public List<User> getAllUsers(){
-               return student.findAll();
+               return user.findAll();
           }
           
           @Override
           public User getUser(Long id){
-               return student.findById(id).orElse(null);
+               return user.findById(id).orElse(null);
           }
           @Override
           public User getByEmail(String email){
-               return student.findByEmail().orElse(null);
+               return user.findByEmail().orElse(null);
           }
 }
 

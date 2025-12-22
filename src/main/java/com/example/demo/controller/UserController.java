@@ -22,7 +22,7 @@ public class UserController{
         return serviceUser.getAllUsers();
     }
     @GetMapping("/api/users/{id}")
-    public User FindVal(@PathVariable int id){
+    public User FindVal(@PathVariable Long id){
         return serviceUser.getUser(id);
     }  
     @GetMapping("/api/users/{email}")
