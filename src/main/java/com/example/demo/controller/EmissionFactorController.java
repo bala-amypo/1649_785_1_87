@@ -14,20 +14,20 @@ import com.example.demo.service.EmissionFactorService;
 public class EmissionFactorController{
     @Autowired EmissionFactorService serviceEF;
     @PostMapping("/api/Factors/register")
-    public EmissionFactor sendData(@RequestBody EmissionFactor stu){
+    public EmissionFactor sendData1(@RequestBody EmissionFactor stu){
         return serviceEF.createFactor(stu);
     }
     @GetMapping("/api/Factors/all")
-    public List<EmissionFactor> geAllData(){
+    public List<EmissionFactor> geAllData1(){
         return serviceEF.getAllFactors();
     }
     @GetMapping("/api/Factors/{id}")
-    public EmissionFactor FindVal(@PathVariable Long id){
+    public EmissionFactor FindVal1(@PathVariable Long id){
         return serviceEF.getFactor(id);
     }  
-    @GetMapping("/api/Factors/{email}")
-    public EmissionFactor UpdateData(@PathVariable String email){
-            return serviceEF.getByEmail(email);
-    }
+    // @GetMapping("/api/Factors/{email}")
+    // public EmissionFactor UpdateData1(@PathVariable String email){
+    //         return serviceEF.getByEmail(email);
+    // }
 
 }
