@@ -6,6 +6,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.HashMap;
+// import java.util.Map;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -18,23 +20,25 @@ public class JwtUtil {
     private final long expirationMs = 1000L * 60 * 60; // 1 hour
 
     public String generateToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
-                .signWith(SignatureAlgorithm.HS256, secret.getBytes(StandardCharsets.UTF_8))
-                .compact();
+    Map<String, Object> mutableClaims = new HashMap<>(claims);
+
+    return Jwts.builder()
+            .setClaims(mutableClaims)
+            .setSubject(subject)
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
+            .signWith(SignatureAlgorithm.HS256, secret.getBytes(StandardCharsets.UTF_8))
+            .compact();
     }
 
-    public String generateTokenForUser(User user) {
-        Map<String, Object> claims = Map.of(
-                "email", user.getEmail(),
-                "role", user.getRole(),
-                "userId", user.getId()
-        );
-        return generateToken(claims, user.getEmail());
-    }
+public String generateTokenForUser(User user) {
+    Map<String, Object> claims = new HashMap<>();
+    claims.put("email", user.getEmail());
+    claims.put("role", user.getRole());
+    claims.put("userId", user.getId());
+
+    return generateToken(claims, user.getEmail());
+}
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
