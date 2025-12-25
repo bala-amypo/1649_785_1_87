@@ -64,10 +64,12 @@ public class JwtUtil {
     }
 
     // Return type must be Jws<Claims>, but we wrap to add getPayload()
-    public Jws<Claims> parseToken(String token) {
-    return Jwts.parser()
+    public JwtParsedToken parseToken(String token) {
+    Claims claims = Jwts.parser()
             .setSigningKey(secret.getBytes(StandardCharsets.UTF_8))
-            .parseClaimsJws(token);
+            .parseClaimsJws(token)
+            .getBody();
+    return new JwtParsedToken(claims);
 }
 
 
