@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(User user) {
+    public User registerUser(User user) {
 
         if (user == null) {
             throw new ValidationException("User cannot be null");

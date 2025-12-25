@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface UserService {
 
-    User register(User user);
+    User registerUser(User user);
 
     User login(String email, String password);
 
