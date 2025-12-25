@@ -1,29 +1,40 @@
 package com.example.demo.entity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.PrePersist;
+
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import java.time.LocalDate;
-import lombok.Data;
-import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+
 @Entity
-@Data
-    @NoArgsConstructor
-    @AllArgsConstructor
 public class ActivityLog {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne private ActivityType activityType;
-    @ManyToOne private User user;
-    private Double quantity;
-    private LocalDate activityDate;
-    private LocalDateTime loggedAt;
-    private Double estimatedEmission;
-    @PrePersist
-    public void prePersist() { if(loggedAt==null) loggedAt=LocalDateTime.now(); }
+
+    private LocalDate date;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private ActivityType type;
+
+    private Double value; // example field
+
+    // getters and setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+
+    public ActivityType getType() { return type; }
+    public void setType(ActivityType type) { this.type = type; }
+
+    public Double getValue() { return value; }
+    public void setValue(Double value) { this.value = value; }
 }

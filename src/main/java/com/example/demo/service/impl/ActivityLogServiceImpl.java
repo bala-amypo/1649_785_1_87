@@ -4,6 +4,7 @@ import com.example.demo.entity.ActivityLog;
 import com.example.demo.repository.ActivityLogRepository;
 import com.example.demo.service.ActivityLogService;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,7 +19,9 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
     @Override
     public void logActivity(Long userId, Long typeId, ActivityLog log) {
-        // implementation
+        log.setUserId(userId);
+        log.setTypeId(typeId);
+        repository.save(log);
     }
 
     @Override
