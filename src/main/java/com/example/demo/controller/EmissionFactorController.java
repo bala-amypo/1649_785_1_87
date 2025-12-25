@@ -2,11 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.EmissionFactor;
 import com.example.demo.service.EmissionFactorService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/factors")
+@RequestMapping("/api/emission-factors")
 public class EmissionFactorController {
 
     private final EmissionFactorService factorService;
@@ -15,9 +15,8 @@ public class EmissionFactorController {
         this.factorService = factorService;
     }
 
-    @GetMapping("/type/{typeId}")
-    public ResponseEntity<EmissionFactor> getFactorByType(@PathVariable Long typeId) {
-        EmissionFactor factor = factorService.getFactorByType(typeId);
-        return ResponseEntity.ok(factor);
+    @GetMapping("/{typeId}")
+    public List<EmissionFactor> getFactors(@PathVariable Long typeId) {
+        return factorService.getFactorByType(typeId); // must be List
     }
 }
