@@ -1,63 +1,39 @@
-package com.example.demo.service.impl;
+package com.example.demo.service;
 
+import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.entity.User;
 import com.example.demo.exception.ValidationException;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+@Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    @Override
-    public User registerUser(User user) {
+    public User register(RegisterRequest request) {
+        if(userRepository.findByUsername(request.getUsername()).isPresent())
+            throw new ValidationException("Username already exists");
 
-        if (user == null) {
-            throw new ValidationException("User cannot be null");
-        }
-
-        if (user.getEmail() == null || user.getEmail().isEmpty()) {
-            throw new ValidationException("Email cannot be empty");
-        }
-
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new ValidationException("Email already exists");
-        }
-
-        if (user.getPassword() == null || user.getPassword().length() < 8) {
-            throw new ValidationException("Password must be at least 8 characters");
-        }
-
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole("USER");
         return userRepository.save(user);
     }
 
-    @Override
-    public User login(String email, String password) {
-
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ValidationException("Invalid email or password"));
-
-        if (!user.getPassword().equals(password)) {
-            throw new ValidationException("Invalid email or password");
-        }
-
+    public User login(LoginRequest request) {
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new ValidationException("Invalid username"));
+        if(!passwordEncoder.matches(request.getPassword(), user.getPassword()))
+            throw new ValidationException("Invalid password");
         return user;
-    }
-
-    @Override
-    public User getUser(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ValidationException("User not found"));
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
     }
 }
