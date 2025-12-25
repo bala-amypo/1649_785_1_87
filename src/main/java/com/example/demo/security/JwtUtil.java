@@ -65,11 +65,11 @@ public class JwtUtil {
 
     // Return type must be Jws<Claims>, but we wrap to add getPayload()
     public Jws<Claims> parseToken(String token) {
-        Jws<Claims> jws = Jwts.parser()
-                .setSigningKey(secret.getBytes(StandardCharsets.UTF_8))
-                .parseClaimsJws(token);
-        return new JwsWrapper(jws);
-    }
+    return Jwts.parser()
+            .setSigningKey(secret.getBytes(StandardCharsets.UTF_8))
+            .parseClaimsJws(token);
+}
+
 
     private boolean isTokenExpired(String token) {
         Date expiration = extractClaim(token, Claims::getExpiration);
