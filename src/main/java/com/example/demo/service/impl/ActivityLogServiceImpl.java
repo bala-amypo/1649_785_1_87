@@ -38,4 +38,17 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     public ActivityLog getActivityLog(Long id) {
         return repository.findById(id).orElse(null);
     }
+    @Override
+public void logActivity(Long userId, Long typeId, ActivityLog log) {
+    User user = new User();
+    user.setId(userId);
+    log.setUser(user);
+
+    ActivityType type = new ActivityType();
+    type.setId(typeId);
+    log.setType(type);
+
+    repository.save(log);
+}
+
 }
