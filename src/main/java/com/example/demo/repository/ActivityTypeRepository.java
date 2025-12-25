@@ -3,13 +3,7 @@ package com.example.demo.repository;
 import com.example.demo.entity.ActivityType;
 import java.util.*;
 
-public interface ActivityTypeRepository {
+public interface ActivityTypeRepository extends JpaRepository<ActivityType, Long> { 
+    List<ActivityType> findByCategory_Id(Long id); 
+    }
 
-    ActivityType save(ActivityType type);
-
-    List<ActivityType> findAll();
-
-    Optional<ActivityType> findById(Long id);
-
-    List<ActivityType> findByCategory_Id(Long categoryId);
-}
