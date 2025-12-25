@@ -19,7 +19,7 @@ public class ActivityType{
     private String typeName;
     private ActivityCategory category;
     private String unit;
-    @PrePersist
+    
     private LocalDateTime createdAt;
     public void prePersist() {
         this.createdAt = LocalDateTime.now();

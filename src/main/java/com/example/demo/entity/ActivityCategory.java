@@ -18,7 +18,6 @@ public class ActivityCategory{
     private Long id;
     private String categoryName;
     private String description;
-    @PrePersist
     private LocalDateTime createdAt;
     public void PrePersist() {
         this.createdAt = LocalDateTime.now();

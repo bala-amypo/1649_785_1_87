@@ -1,19 +1,20 @@
 package com.example.demo.security;
 
 import com.example.demo.entity.User;
-import io.jsonwebtoken.*;
-import java.util.*;
+
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JwtUtil {
 
-    private final String secret = "secret";
+    private final Map<String, Map<String, Object>> tokenStore = new HashMap<>();
 
     public String generateToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .signWith(SignatureAlgorithm.HS256, secret)
-                .compact();
+        String token = Base64.getEncoder()
+                .encodeToString((subject + System.nanoTime()).getBytes());
+        tokenStore.put(token, claims);
+        return token;
     }
 
     public String generateTokenForUser(User user) {
@@ -25,24 +26,38 @@ public class JwtUtil {
     }
 
     public String extractUsername(String token) {
-        return parseToken(token).getBody().getSubject();
+        return (String) parseToken(token).getPayload().get("email");
     }
 
     public String extractRole(String token) {
-        return (String) parseToken(token).getBody().get("role");
+        return (String) parseToken(token).getPayload().get("role");
     }
 
     public Long extractUserId(String token) {
-        return ((Number) parseToken(token).getBody().get("userId")).longValue();
+        return (Long) parseToken(token).getPayload().get("userId");
     }
 
     public boolean isTokenValid(String token, String username) {
         return extractUsername(token).equals(username);
     }
 
-    public Jws<Claims> parseToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token);
+    public ParsedToken parseToken(String token) {
+        if (!tokenStore.containsKey(token)) {
+            throw new RuntimeException("Invalid token");
+        }
+        return new ParsedToken(tokenStore.get(token));
+    }
+
+    // helper class
+    public static class ParsedToken {
+        private final Map<String, Object> payload;
+
+        public ParsedToken(Map<String, Object> payload) {
+            this.payload = payload;
+        }
+
+        public Map<String, Object> getPayload() {
+            return payload;
+        }
     }
 }
