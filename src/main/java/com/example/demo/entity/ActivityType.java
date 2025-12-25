@@ -7,21 +7,19 @@ import jakarta.persistence.PrePersist;
 import lombok.Data;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.NoArgsConstructor
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class ActivityType{
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @NoArgsConstructor
+    @AllArgsConstructo
+public class ActivityType {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String typeName;
+    @ManyToOne
     private ActivityCategory category;
     private String unit;
-    
     private LocalDateTime createdAt;
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-    }
+    @PrePersist
+    public void prePersist() { if(createdAt==null) createdAt=LocalDateTime.now(); }
 }
