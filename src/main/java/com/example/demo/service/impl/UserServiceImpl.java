@@ -5,9 +5,9 @@ import com.example.demo.exception.ValidationException;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 
-import java.util.Optional;
+import java.util.List;
 
-  public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -17,6 +17,7 @@ import java.util.Optional;
 
     @Override
     public User register(User user) {
+
         if (user == null) {
             throw new ValidationException("User cannot be null");
         }
@@ -38,6 +39,7 @@ import java.util.Optional;
 
     @Override
     public User login(String email, String password) {
+
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ValidationException("Invalid email or password"));
 
@@ -52,5 +54,10 @@ import java.util.Optional;
     public User getUser(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("User not found"));
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

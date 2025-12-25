@@ -1,10 +1,17 @@
 package com.example.demo.repository;
+
 import com.example.demo.entity.User;
 import java.util.*;
 
 public interface UserRepository {
+
     boolean existsByEmail(String email);
+
     Optional<User> findByEmail(String email);
+
     Optional<User> findById(Long id);
+
+    List<User> findAll();
+
     User save(User user);
 }
