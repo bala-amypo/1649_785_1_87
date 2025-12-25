@@ -12,18 +12,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ActivityLog{
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;      
+public class ActivityLog {
+    private Long id;
     private ActivityType activityType;
+    private User user;
     private Double quantity;
-    private LocalDateTime activityDate;
-    
+    private LocalDate activityDate;
     private LocalDateTime loggedAt;
+    private Double estimatedEmission;
+
     public void prePersist() {
         this.loggedAt = LocalDateTime.now();
     }
-    private Double estimatedEmission;
-
 }

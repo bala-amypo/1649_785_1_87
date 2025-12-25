@@ -7,7 +7,7 @@ import com.example.demo.service.UserService;
 
 import java.util.Optional;
 
-public class UserServiceImpl implements UserService {
+  public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -17,7 +17,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) {
-
         if (user == null) {
             throw new ValidationException("User cannot be null");
         }
@@ -39,22 +38,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(String email, String password) {
-
-        if (email == null || email.isEmpty()) {
-            throw new ValidationException("Email cannot be empty");
-        }
-
-        if (password == null || password.isEmpty()) {
-            throw new ValidationException("Password cannot be empty");
-        }
-
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-
-        if (optionalUser.isEmpty()) {
-            throw new ValidationException("Invalid email or password");
-        }
-
-        User user = optionalUser.get();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ValidationException("Invalid email or password"));
 
         if (!user.getPassword().equals(password)) {
             throw new ValidationException("Invalid email or password");
@@ -64,12 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(Long id) {
-
-        if (id == null) {
-            throw new ValidationException("User ID cannot be null");
-        }
-
+    public User getUser(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ValidationException("User not found"));
     }
