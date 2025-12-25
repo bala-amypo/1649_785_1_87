@@ -4,24 +4,27 @@ import jakarta.persistence.*;
 
 @Entity
 public class ActivityType {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    // Many ActivityTypes belong to one ActivityCategory
-    @ManyToOne
-    @JoinColumn(name = "category_id")  // this maps to the column in DB
-    private ActivityCategory category;
+    // getters & setters
+    public Long getId() {
+        return id;
+    }
 
-    // Getters & Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public ActivityCategory getCategory() { return category; }
-    public void setCategory(ActivityCategory category) { this.category = category; }
+    public void setName(String name) {
+        this.name = name;
+    }
 }
