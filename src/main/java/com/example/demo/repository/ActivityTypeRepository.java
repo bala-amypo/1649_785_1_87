@@ -1,5 +1,5 @@
 package com.example.demo.repository;
-
+import jakarta.persistence.*;
 import com.example.demo.entity.ActivityType;
 import java.util.*;
 
