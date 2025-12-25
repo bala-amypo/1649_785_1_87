@@ -1,9 +1,12 @@
 package com.example.demo.service;
+
 import com.example.demo.entity.ActivityLog;
-import java.util.*;
-public interface ActivityLogService{
-    ActivityLog registerActivityLog(ActivityLog stu);
-    List<ActivityLog> getAllActivityLogs();
+import java.time.LocalDate;
+import java.util.List;
+
+public interface ActivityLogService {
+    void logActivity(Long userId, Long typeId, ActivityLog log);
+    List<ActivityLog> getLogsByUser(Long userId);
+    List<ActivityLog> getLogsByUserAndDate(Long userId, LocalDate start, LocalDate end);
     ActivityLog getActivityLog(Long id);
-    // ActivityLog getByEmail(String email);
 }
