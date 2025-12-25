@@ -1,40 +1,63 @@
+// com/example/demo/entity/ActivityLog.java
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@Entity
 public class ActivityLog {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private LocalDate date;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    private ActivityType activityType;
     private User user;
+    private Double quantity;
+    private LocalDate activityDate;
+    private LocalDateTime loggedAt;
+    private Double estimatedEmission;
 
-    @ManyToOne
-    @JoinColumn(name = "type_id")
-    private ActivityType type;
+    public ActivityLog() {}
 
-    private Double value;
+    public ActivityLog(Long id, ActivityType activityType, User user,
+                       Double quantity, LocalDate activityDate,
+                       LocalDateTime loggedAt, Double estimatedEmission) {
+        this.id = id;
+        this.activityType = activityType;
+        this.user = user;
+        this.quantity = quantity;
+        this.activityDate = activityDate;
+        this.loggedAt = loggedAt;
+        this.estimatedEmission = estimatedEmission;
+    }
 
-    // Getters and Setters
+    public void prePersist() {
+        if (this.loggedAt == null) {
+            this.loggedAt = LocalDateTime.now();
+        }
+    }
+
     public Long getId() { return id; }
+
     public void setId(Long id) { this.id = id; }
 
-    public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
+    public ActivityType getActivityType() { return activityType; }
+
+    public void setActivityType(ActivityType activityType) { this.activityType = activityType; }
 
     public User getUser() { return user; }
+
     public void setUser(User user) { this.user = user; }
 
-    public ActivityType getType() { return type; }
-    public void setType(ActivityType type) { this.type = type; }
+    public Double getQuantity() { return quantity; }
 
-    public Double getValue() { return value; }
-    public void setValue(Double value) { this.value = value; }
+    public void setQuantity(Double quantity) { this.quantity = quantity; }
+
+    public LocalDate getActivityDate() { return activityDate; }
+
+    public void setActivityDate(LocalDate activityDate) { this.activityDate = activityDate; }
+
+    public LocalDateTime getLoggedAt() { return loggedAt; }
+
+    public void setLoggedAt(LocalDateTime loggedAt) { this.loggedAt = loggedAt; }
+
+    public Double getEstimatedEmission() { return estimatedEmission; }
+
+    public void setEstimatedEmission(Double estimatedEmission) { this.estimatedEmission = estimatedEmission; }
 }

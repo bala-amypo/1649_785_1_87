@@ -1,30 +1,49 @@
+// com/example/demo/entity/ActivityType.java
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity
 public class ActivityType {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String typeName;
+    private ActivityCategory category;
+    private String unit;
+    private LocalDateTime createdAt;
 
-    private String name;
+    public ActivityType() {}
 
-    // getters & setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public ActivityType(Long id, String typeName, ActivityCategory category,
+                        String unit, LocalDateTime createdAt) {
         this.id = id;
+        this.typeName = typeName;
+        this.category = category;
+        this.unit = unit;
+        this.createdAt = createdAt;
     }
 
-    public String getName() {
-        return name;
+    public void prePersist() {
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
+
+    public String getTypeName() { return typeName; }
+
+    public void setTypeName(String typeName) { this.typeName = typeName; }
+
+    public ActivityCategory getCategory() { return category; }
+
+    public void setCategory(ActivityCategory category) { this.category = category; }
+
+    public String getUnit() { return unit; }
+
+    public void setUnit(String unit) { this.unit = unit; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

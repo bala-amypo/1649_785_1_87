@@ -1,8 +1,12 @@
+// com/example/demo/service/ActivityCategoryService.java
 package com.example.demo.service;
+
 import com.example.demo.entity.ActivityCategory;
-import java.util.*;
-public interface ActivityCategoryService{
-    ActivityCategory createCategory(ActivityCategory stu);
+
+import java.util.List;
+
+public interface ActivityCategoryService {
+    ActivityCategory createCategory(ActivityCategory category);
     List<ActivityCategory> getAllCategories();
     ActivityCategory getCategory(Long id);
 }

@@ -1,12 +1,11 @@
+// com/example/demo/repository/EmissionFactorRepository.java
 package com.example.demo.repository;
 
 import com.example.demo.entity.EmissionFactor;
-import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
 
-public interface EmissionFactorRepository
-        extends JpaRepository<EmissionFactor, Long> {
+import java.util.Optional;
 
-    // ✅ CORRECT METHOD
-    List<EmissionFactor> findByType_Id(Long typeId);
+public interface EmissionFactorRepository {
+    EmissionFactor save(EmissionFactor emissionFactor);
+    Optional<EmissionFactor> findByActivityType_Id(Long typeId);
 }
