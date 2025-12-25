@@ -1,23 +1,26 @@
 package com.example.demo.entity;
-
-import lombok.*;
-import java.time.LocalDate;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.PrePersist;
+import lombok.Data;
 import java.time.LocalDateTime;
-
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+    @NoArgsConstructor
+    @AllArgsConstructor
 public class ActivityLog {
-
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private ActivityType activityType;
-    private User user;
+    @ManyToOne private ActivityType activityType;
+    @ManyToOne private User user;
     private Double quantity;
     private LocalDate activityDate;
     private LocalDateTime loggedAt;
     private Double estimatedEmission;
-
-    public void prePersist() {
-        this.loggedAt = LocalDateTime.now();
-    }
+    @PrePersist
+    public void prePersist() { if(loggedAt==null) loggedAt=LocalDateTime.now(); }
 }
