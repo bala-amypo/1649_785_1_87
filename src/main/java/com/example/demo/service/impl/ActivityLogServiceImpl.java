@@ -1,8 +1,13 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.ActivityLog;
+import com.example.demo.entity.ActivityType;
+import com.example.demo.entity.User;
 import com.example.demo.repository.ActivityLogRepository;
+import com.example.demo.repository.ActivityTypeRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.ActivityLogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -11,17 +16,24 @@ import java.util.List;
 @Service
 public class ActivityLogServiceImpl implements ActivityLogService {
 
-    private final ActivityLogRepository repository;
+    @Autowired
+    private ActivityLogRepository repository;
 
-    public ActivityLogServiceImpl(ActivityLogRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ActivityTypeRepository typeRepository;
 
     @Override
-    public void logActivity(Long userId, Long typeId, ActivityLog log) {
-        log.setUserId(userId);
-        log.setTypeId(typeId);
-        repository.save(log);
+    public ActivityLog logActivity(Long userId, Long typeId, ActivityLog log) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        ActivityType type = typeRepository.findById(typeId).orElseThrow(() -> new RuntimeException("ActivityType not found"));
+
+        log.setUser(user);
+        log.setType(type);
+
+        return repository.save(log);
     }
 
     @Override
@@ -33,22 +45,4 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     public List<ActivityLog> getLogsByUserAndDate(Long userId, LocalDate start, LocalDate end) {
         return repository.findByUserIdAndDateBetween(userId, start, end);
     }
-
-    @Override
-    public ActivityLog getActivityLog(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-    @Override
-public void logActivity(Long userId, Long typeId, ActivityLog log) {
-    User user = new User();
-    user.setId(userId);
-    log.setUser(user);
-
-    ActivityType type = new ActivityType();
-    type.setId(typeId);
-    log.setType(type);
-
-    repository.save(log);
-}
-
 }

@@ -3,24 +3,19 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.EmissionFactor;
 import com.example.demo.repository.EmissionFactorRepository;
 import com.example.demo.service.EmissionFactorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EmissionFactorServiceImpl implements EmissionFactorService {
 
-    private final EmissionFactorRepository repository;
-
-    public EmissionFactorServiceImpl(EmissionFactorRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private EmissionFactorRepository repository;
 
     @Override
-    public EmissionFactor getFactor(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public EmissionFactor getFactorByType(Long typeId) {
+    public List<EmissionFactor> getFactorByType(Long typeId) {
         return repository.findByTypeId(typeId);
     }
 }
