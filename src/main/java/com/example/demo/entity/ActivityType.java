@@ -1,28 +1,27 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 public class ActivityType {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    // One-to-many relationship with EmissionFactor
-    @OneToMany(mappedBy = "activityType")
-    private List<EmissionFactor> emissionFactors;
+    // Many ActivityTypes belong to one Category
+    @ManyToOne
+    @JoinColumn(name = "category_id")  // this maps to the column in DB
+    private Category category;
 
-    // getters and setters
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public List<EmissionFactor> getEmissionFactors() { return emissionFactors; }
-    public void setEmissionFactors(List<EmissionFactor> emissionFactors) { this.emissionFactors = emissionFactors; }
+    public Category getCategory() { return category; }
+    public void setCategory(Category category) { this.category = category; }
 }

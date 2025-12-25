@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface ActivityTypeService {
     ActivityType getType(Long id);
-    List<ActivityType> findByCategoryId(Long categoryId);
+    List<ActivityType> findByCategory_Id(Long categoryId);
 }
