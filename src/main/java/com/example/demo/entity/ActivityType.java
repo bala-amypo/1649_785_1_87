@@ -10,10 +10,10 @@ public class ActivityType {
 
     private String name;
 
-    // Many ActivityTypes belong to one Category
+    // Many ActivityTypes belong to one ActivityCategory
     @ManyToOne
     @JoinColumn(name = "category_id")  // this maps to the column in DB
-    private Category category;
+    private ActivityCategory category;
 
     // Getters & Setters
     public Long getId() { return id; }
@@ -22,6 +22,6 @@ public class ActivityType {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public Category getCategory() { return category; }
-    public void setCategory(Category category) { this.category = category; }
+    public ActivityCategory getCategory() { return category; }
+    public void setCategory(ActivityCategory category) { this.category = category; }
 }
