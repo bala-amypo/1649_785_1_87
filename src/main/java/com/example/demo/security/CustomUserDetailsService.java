@@ -1,6 +1,5 @@
 // com/example/demo/security/CustomUserDetailsService.java
 package com.example.demo.security;
-
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
