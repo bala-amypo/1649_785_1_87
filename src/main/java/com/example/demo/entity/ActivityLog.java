@@ -16,9 +16,14 @@ public class ActivityLog{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;      
+    private ActivityType activityType;
     private Double quantity;
     private LocalDateTime activityDate;
+    @PrePersist
     private LocalDateTime loggedAt;
+    public void prePersist() {
+        this.loggedAt = LocalDateTime.now();
+    }
     private Double estimatedEmission;
 
 }

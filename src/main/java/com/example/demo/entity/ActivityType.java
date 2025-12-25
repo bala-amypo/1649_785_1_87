@@ -17,7 +17,7 @@ public class ActivityType{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String typeName;
-    ActivityCategory Actvi
+    private ActivityCategory category;
     private String unit;
     @Prepersist
     private LocalDateTime createdAt;

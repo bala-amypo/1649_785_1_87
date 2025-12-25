@@ -16,7 +16,12 @@ public class EmissionFactor{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
+    private ActivityType activityType;
     private Double factorValue;
     private String unit;
+    @PrePersist
     private LocalDateTime createdAt;
+    public void PrePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
