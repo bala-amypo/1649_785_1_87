@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class ActivityType {
@@ -9,19 +10,19 @@ public class ActivityType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String typeName;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private ActivityCategory category;
+    // One-to-many relationship with EmissionFactor
+    @OneToMany(mappedBy = "activityType")
+    private List<EmissionFactor> emissionFactors;
 
-    // Getters and Setters
+    // getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getTypeName() { return typeName; }
-    public void setTypeName(String typeName) { this.typeName = typeName; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public ActivityCategory getCategory() { return category; }
-    public void setCategory(ActivityCategory category) { this.category = category; }
+    public List<EmissionFactor> getEmissionFactors() { return emissionFactors; }
+    public void setEmissionFactors(List<EmissionFactor> emissionFactors) { this.emissionFactors = emissionFactors; }
 }
