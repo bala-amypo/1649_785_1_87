@@ -1,8 +1,12 @@
 package com.example.demo.repository;
-import com.example.demo.entity.ActivityLog;
-import org.springframework.stereotype.Repository;
-import org.springframework.data.jpa.repository.JpaRepository;
-@Repository
-public interface ActivityLogRepository extends JpaRepository<ActivityLog,Long>{
 
+import com.example.demo.entity.ActivityLog;
+import java.time.LocalDate;
+import java.util.List;
+
+public interface ActivityLogRepository {
+    ActivityLog save(ActivityLog log);
+    List<ActivityLog> findByUser_Id(Long userId);
+    List<ActivityLog> findByUser_IdAndActivityDateBetween(
+            Long userId, LocalDate start, LocalDate end);
 }
