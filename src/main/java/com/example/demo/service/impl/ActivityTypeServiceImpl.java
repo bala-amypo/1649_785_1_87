@@ -21,6 +21,6 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
 
     @Override
     public List<ActivityType> findByCategory_Id(Long categoryId) {
-        return repository.findByCategoryId(categoryId);
+        return repository.findByCategory_Id(categoryId);
     }
 }

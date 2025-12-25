@@ -19,7 +19,7 @@ public class ActivityTypeController {
 
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ActivityType>> getTypesByCategory(@PathVariable Long categoryId) {
-        List<ActivityType> list = typeService.findByCategoryId(categoryId);
+        List<ActivityType> list = typeService.findByCategory_Id(categoryId);
         return ResponseEntity.ok(list);
     }
 }
