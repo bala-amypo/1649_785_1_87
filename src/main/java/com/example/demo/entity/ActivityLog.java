@@ -4,6 +4,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.PrePersist;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.Data;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;

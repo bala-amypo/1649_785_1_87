@@ -7,11 +7,11 @@ import jakarta.persistence.PrePersist;
 import lombok.Data;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor
+import lombok.NoArgsConstructor;
 @Entity
 @Data
     @NoArgsConstructor
-    @AllArgsConstructo
+    @AllArgsConstructor
 public class EmissionFactor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
