@@ -20,9 +20,9 @@ public class ActivityLog {
     @JoinColumn(name = "type_id")
     private ActivityType type;
 
-    private Double value; // example field
+    private Double value;
 
-    // getters and setters
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
