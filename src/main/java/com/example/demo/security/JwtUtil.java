@@ -1,4 +1,4 @@
-// com/example/demo/security/JwtUtil.java
+// src/main/java/com/example/demo/security/JwtUtil.java
 package com.example.demo.security;
 
 import com.example.demo.entity.User;
@@ -15,7 +15,6 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private final String secret = "very-secret-key-for-testing-only-should-be-long";
-
     private final long expirationMs = 1000L * 60 * 60; // 1 hour
 
     public String generateToken(Map<String, Object> claims, String subject) {
@@ -64,11 +63,12 @@ public class JwtUtil {
         return extracted != null && extracted.equals(username) && !isTokenExpired(token);
     }
 
+    // Return type must be Jws<Claims>, but we wrap to add getPayload()
     public Jws<Claims> parseToken(String token) {
-        // tests only require an exception on invalid token and payload access
-        return Jwts.parser()
+        Jws<Claims> jws = Jwts.parser()
                 .setSigningKey(secret.getBytes(StandardCharsets.UTF_8))
                 .parseClaimsJws(token);
+        return new JwsWrapper(jws);
     }
 
     private boolean isTokenExpired(String token) {
