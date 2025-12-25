@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.EmissionFactor;
+import java.util.List;
 
 public interface EmissionFactorService {
-    EmissionFactor getFactor(Long id);
-    EmissionFactor getFactorByType(Long typeId);
+    List<EmissionFactor> getFactorByType(Long typeId); // must match impl
 }
