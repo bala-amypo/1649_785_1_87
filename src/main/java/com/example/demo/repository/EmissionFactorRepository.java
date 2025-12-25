@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface EmissionFactorRepository extends JpaRepository<EmissionFactor, Long> {
-    List<EmissionFactor> findByTypeId(Long typeId);
+
+    // Fix: traverse the relation with '_id'
+    List<EmissionFactor> findByType_Id(Long typeId);
 }

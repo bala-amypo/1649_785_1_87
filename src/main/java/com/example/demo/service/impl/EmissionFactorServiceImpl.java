@@ -17,6 +17,6 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
 
     @Override
     public List<EmissionFactor> getFactorByType(Long typeId) {
-        return repository.findByTypeId(typeId); // returns list
+        return repository.findByType_Id(typeId); // matches the repository method
     }
 }
