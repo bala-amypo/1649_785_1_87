@@ -1,31 +1,26 @@
 package com.example.demo.entity;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.PrePersist;
 import lombok.Data;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+    @NoArgsConstructor
+    @AllArgsConstructor
 public class ActivityCategory {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String categoryName;
     private String description;
     private LocalDateTime createdAt;
 
+
     @PrePersist
-    public void onCreate() {
-        this.createdAt = LocalDateTime.now();
-    }
+    public void prePersist() { if(createdAt==null) createdAt = LocalDateTime.now(); }
+    
 }
