@@ -5,6 +5,7 @@ import com.example.demo.repository.ActivityCategoryRepository;
 import com.example.demo.repository.ActivityTypeRepository;
 import com.example.demo.service.ActivityTypeService;
 import org.springframework.stereotype.Service;
+import com.example.demo.exception.ResourceNotFoundException;
 
 import java.util.List;
 

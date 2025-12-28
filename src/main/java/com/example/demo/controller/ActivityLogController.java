@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.example.demo.exception.ResourceNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class ActivityLogController {
     
 @GetMapping("/{id}")
 public ResponseEntity<ActivityLog> getLogById(@PathVariable Long id) {
-    ActivityLog log = logRepository.findById(id)
+    ActivityLog log = logService.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("ActivityLog not found: " + id));
     return ResponseEntity.ok(log);
 }
