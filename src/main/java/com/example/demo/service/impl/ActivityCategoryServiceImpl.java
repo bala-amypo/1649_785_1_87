@@ -13,8 +13,7 @@ import java.util.List;
 @Service
 public class ActivityCategoryServiceImpl implements ActivityCategoryService {
     
-    @Autowired
-    private ActivityCategoryRepository categoryRepository;
+    public ActivityCategoryRepository categoryRepository;
 
     @Override
     public ActivityCategory createCategory(ActivityCategory category) {
