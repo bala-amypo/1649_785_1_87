@@ -66,8 +66,4 @@ public class ActivityLog {
     public void setLoggedAt(LocalDateTime loggedAt) { this.loggedAt = loggedAt; }
     public Double getEstimatedEmission() { return estimatedEmission; }
     public void setEstimatedEmission(Double estimatedEmission) { this.estimatedEmission = estimatedEmission; }
-    
-    public void prePersist() {
-        this.prePersist();
-    }
 }

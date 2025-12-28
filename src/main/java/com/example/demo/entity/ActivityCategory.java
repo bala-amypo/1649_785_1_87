@@ -43,8 +43,4 @@ public class ActivityCategory {
     public void setDescription(String description) { this.description = description; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-    
-    public void prePersist() {
-        this.prePersist();
-    }
 }

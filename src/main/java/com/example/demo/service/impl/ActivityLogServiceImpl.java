@@ -48,7 +48,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         log.setQuantity(request.getQuantity());
         log.setActivityDate(request.getActivityDate());
         log.setEstimatedEmission(request.getQuantity() * factor.getFactorValue());
-        log.prePersist();
+        log.setLoggedAt(java.time.LocalDateTime.now());  // Manual set instead of prePersist()
         
         return logRepository.save(log);
     }

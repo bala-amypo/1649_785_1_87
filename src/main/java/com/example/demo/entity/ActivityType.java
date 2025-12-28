@@ -51,8 +51,4 @@ public class ActivityType {
     public void setUnit(String unit) { this.unit = unit; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-    
-    public void prePersist() {
-        this.prePersist();
-    }
 }
