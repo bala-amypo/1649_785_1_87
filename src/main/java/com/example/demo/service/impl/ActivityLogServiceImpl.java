@@ -62,9 +62,9 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         return logRepository.findByUser_Id(userId);
     }
     @Override
-    public ActivityLog getLogById(Long id) {
-        return logRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("ActivityLog not found"));
-    }
+public ActivityLog getLogById(Long id) {
+    return logRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("ActivityLog not found: " + id));
+}
 
 }
