@@ -1,21 +1,16 @@
-// com/example/demo/service/impl/ActivityLogServiceImpl.java
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.ActivityLog;
-import com.example.demo.entity.ActivityType;
-import com.example.demo.entity.EmissionFactor;
-import com.example.demo.entity.User;
+import com.example.demo.entity.*;
 import com.example.demo.exception.ValidationException;
-import com.example.demo.repository.ActivityLogRepository;
-import com.example.demo.repository.ActivityTypeRepository;
-import com.example.demo.repository.EmissionFactorRepository;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.*;
 import com.example.demo.service.ActivityLogService;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class ActivityLogServiceImpl implements ActivityLogService {
 
     private final UserRepository userRepository;
@@ -23,10 +18,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     private final EmissionFactorRepository factorRepository;
     private final ActivityLogRepository logRepository;
 
-    public ActivityLogServiceImpl(UserRepository userRepository,
-                                  ActivityTypeRepository typeRepository,
-                                  EmissionFactorRepository factorRepository,
-                                  ActivityLogRepository logRepository) {
+    public ActivityLogServiceImpl(UserRepository userRepository, ActivityTypeRepository typeRepository,
+                                  EmissionFactorRepository factorRepository, ActivityLogRepository logRepository) {
         this.userRepository = userRepository;
         this.typeRepository = typeRepository;
         this.factorRepository = factorRepository;
@@ -35,8 +28,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
     @Override
     public ActivityLog logActivity(Long userId, Long typeId, ActivityLog log) {
-        User user = userRepository.findById(userId).orElseThrow();
-        ActivityType type = typeRepository.findById(typeId).orElse(null);
+        userRepository.findById(userId).orElseThrow();
+        typeRepository.findById(typeId).orElse(null);
 
         if (log.getActivityDate() != null && log.getActivityDate().isAfter(LocalDate.now())) {
             throw new ValidationException("Activity date cannot be in the future");
@@ -47,12 +40,13 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
         double estimated = (log.getQuantity() != null ? log.getQuantity() : 0.0) * factor.getFactorValue();
 
+        User user = userRepository.findById(userId).get();
+        ActivityType type = typeRepository.findById(typeId).get();
+        
         log.setUser(user);
         log.setActivityType(type);
         log.setEstimatedEmission(estimated);
-        if (log.getLoggedAt() == null) {
-            log.setLoggedAt(LocalDateTime.now());
-        }
+        log.prePersist();
 
         return logRepository.save(log);
     }
