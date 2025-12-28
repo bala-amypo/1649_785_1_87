@@ -4,11 +4,12 @@ import com.example.demo.entity.EmissionFactor;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.EmissionFactorRepository;
 import com.example.demo.repository.ActivityTypeRepository;
+import com.example.demo.service.EmissionFactorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmissionFactorServiceImpl {
+public class EmissionFactorServiceImpl implements EmissionFactorService {
     
     @Autowired
     private ActivityTypeRepository typeRepository;
@@ -16,6 +17,7 @@ public class EmissionFactorServiceImpl {
     @Autowired
     private EmissionFactorRepository factorRepository;
 
+    @Override
     public EmissionFactor getFactorByType(Long activityTypeId) {
         return factorRepository.findByActivityType_Id(activityTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Emission factor not found for activity type: " + activityTypeId));
