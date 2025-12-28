@@ -1,4 +1,3 @@
-// src/main/java/com/example/demo/service/impl/ActivityCategoryServiceImpl.java
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.ActivityCategory;
@@ -8,6 +7,7 @@ import com.example.demo.repository.ActivityCategoryRepository;
 import com.example.demo.service.ActivityCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -32,6 +32,6 @@ public class ActivityCategoryServiceImpl implements ActivityCategoryService {
     @Override
     public ActivityCategory getCategory(Long id) {
         return categoryRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + id));
     }
 }
