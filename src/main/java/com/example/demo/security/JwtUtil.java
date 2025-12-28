@@ -37,17 +37,22 @@ public class JwtUtil {
     public String extractRole(String token) {
         return extractAllClaims(token).get("role", String.class);
     }
-public String parseToken(String token) {
-    try {
-        String[] parts = token.split("\\.");
-        if (parts.length >= 2) {
-            return new String(Base64.getUrlDecoder().decode(parts[1]));
+public JwtParsedToken parseToken(String token) {
+        try {
+            String[] parts = token.split("\\.");
+            if (parts.length >= 2) {
+                String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
+                Claims claims = Jwts.parserBuilder()
+                    .build()
+                    .parseClaimsJwt(payload)
+                    .getBody();
+                return new JwtParsedToken(claims);
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
         }
-        return null;
-    } catch (Exception e) {
-        return null;
     }
-}
     public Long extractUserId(String token) {
         return extractAllClaims(token).get("userId", Long.class);
     }
