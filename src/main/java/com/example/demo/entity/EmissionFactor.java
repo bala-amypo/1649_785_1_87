@@ -1,4 +1,3 @@
-// src/main/java/com/example/demo/entity/EmissionFactor.java
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
@@ -12,11 +11,16 @@ public class EmissionFactor {
     private Long id;
     
     @OneToOne
-    @JoinColumn(name = "activity_type_id")
+    @JoinColumn(name = "activity_type_id", unique = true)
     private ActivityType activityType;
     
+    @Column(name = "factor_value", nullable = false)
     private Double factorValue;
+    
+    @Column(nullable = false)
     private String unit;
+    
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     public EmissionFactor() {}
@@ -36,7 +40,7 @@ public class EmissionFactor {
         }
     }
 
-    // Getters and setters
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public ActivityType getActivityType() { return activityType; }
@@ -47,4 +51,8 @@ public class EmissionFactor {
     public void setUnit(String unit) { this.unit = unit; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    
+    public void prePersist() {
+        this.prePersist();
+    }
 }

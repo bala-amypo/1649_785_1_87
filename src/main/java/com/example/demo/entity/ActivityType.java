@@ -1,4 +1,3 @@
-// src/main/java/com/example/demo/entity/ActivityType.java
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
@@ -11,11 +10,17 @@ public class ActivityType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(name = "type_name", nullable = false)
     private String typeName;
-    @ManyToOne
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private ActivityCategory category;
+    
+    @Column(nullable = false)
     private String unit;
+    
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     public ActivityType() {}
@@ -35,7 +40,7 @@ public class ActivityType {
         }
     }
 
-    // Getters and setters
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getTypeName() { return typeName; }
@@ -46,4 +51,8 @@ public class ActivityType {
     public void setUnit(String unit) { this.unit = unit; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    
+    public void prePersist() {
+        this.prePersist();
+    }
 }

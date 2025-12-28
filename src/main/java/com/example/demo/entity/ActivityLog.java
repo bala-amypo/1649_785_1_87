@@ -1,4 +1,3 @@
-// src/main/java/com/example/demo/entity/ActivityLog.java
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
@@ -12,17 +11,24 @@ public class ActivityLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "activity_type_id")
     private ActivityType activityType;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
     
+    @Column(nullable = false)
     private Double quantity;
+    
+    @Column(name = "activity_date", nullable = false)
     private LocalDate activityDate;
+    
+    @Column(name = "logged_at")
     private LocalDateTime loggedAt;
+    
+    @Column(name = "estimated_emission")
     private Double estimatedEmission;
 
     public ActivityLog() {}
@@ -45,7 +51,7 @@ public class ActivityLog {
         }
     }
 
-    // Getters and setters
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public ActivityType getActivityType() { return activityType; }
@@ -60,4 +66,8 @@ public class ActivityLog {
     public void setLoggedAt(LocalDateTime loggedAt) { this.loggedAt = loggedAt; }
     public Double getEstimatedEmission() { return estimatedEmission; }
     public void setEstimatedEmission(Double estimatedEmission) { this.estimatedEmission = estimatedEmission; }
+    
+    public void prePersist() {
+        this.prePersist();
+    }
 }

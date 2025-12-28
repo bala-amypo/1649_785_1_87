@@ -1,4 +1,3 @@
-// src/main/java/com/example/demo/entity/User.java
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
@@ -11,11 +10,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(nullable = false)
     private String name;
-    @Column(unique = true)
+    
+    @Column(unique = true, nullable = false)
     private String email;
+    
+    @Column(nullable = false)
     private String password;
+    
+    @Column(nullable = false)
     private String role;
+    
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     public User() {}
@@ -29,7 +36,7 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    // Getters and setters
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getName() { return name; }
