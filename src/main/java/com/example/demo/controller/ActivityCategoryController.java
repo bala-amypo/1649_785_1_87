@@ -1,4 +1,3 @@
-// src/main/java/com/example/demo/controller/ActivityCategoryController.java
 package com.example.demo.controller;
 
 import com.example.demo.entity.ActivityCategory;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Activity Categories")
+@Tag(name = "Activity Categories", description = "Category management APIs")
 @RestController
 @RequestMapping("/api/categories")
 public class ActivityCategoryController {
