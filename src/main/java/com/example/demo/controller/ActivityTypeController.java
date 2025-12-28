@@ -1,29 +1,21 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.ActivityType;
-import com.example.demo.service.ActivityTypeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import com.example.demo.repository.ActivityTypeRepository;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/activity-types")
+@RequestMapping("/api/types")
 public class ActivityTypeController {
+    private final ActivityTypeRepository typeRepository;
 
-    @Autowired
-    private ActivityTypeService typeService;
-    @PostMapping("/category/{categoryId}")
-    public ResponseEntity<ActivityType> createType(@RequestBody ActivityType type) {
-        ActivityType created = typeService.createType(type);
-        return ResponseEntity.ok(created);
+    public ActivityTypeController(ActivityTypeRepository typeRepository) {
+        this.typeRepository = typeRepository;
     }
 
-
     @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<ActivityType>> getTypesByCategory(@PathVariable Long categoryId) {
-        List<ActivityType> types = typeService.getTypesByCategory(categoryId);
-        return ResponseEntity.ok(types);
+    public List<ActivityType> getTypesByCategory(@PathVariable Long categoryId) {
+        return typeRepository.findByCategory_Id(categoryId);
     }
 }
