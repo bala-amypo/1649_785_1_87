@@ -8,8 +8,6 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
@@ -18,10 +16,15 @@ import java.util.function.Function;
 public class JwtUtil {
     private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long jwtExpiration = 86400000; // 24 hours
-    private final String SECRET_KEY = "your-very-long-secret-key-here-at-least-256-bits-long-for-HS256";
 
     public String generateToken(Map<String, Object> claims, String subject) {
-        return createToken(claims, subject);
+        return Jwts.builder()
+                .claims(claims)
+                .subject(subject)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .signWith(secretKey)
+                .compact();
     }
 
     public String generateTokenForUser(User user) {
@@ -29,16 +32,6 @@ public class JwtUtil {
                 Map.of("userId", user.getId(), "role", user.getRole(), "email", user.getEmail()),
                 user.getEmail()
         );
-    }
-
-    private String createToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes(StandardCharsets.UTF_8))
-                .compact();
     }
 
     public String extractUsername(String token) {
@@ -59,14 +52,11 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        try {
-            return Jwts.parser()
-                    .setSigningKey(SECRET_KEY.getBytes(StandardCharsets.UTF_8))
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (Exception e) {
-            throw new RuntimeException("Invalid JWT token", e);
-        }
+        return Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     public Claims parseToken(String token) {
