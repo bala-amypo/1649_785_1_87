@@ -30,4 +30,9 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     public List<ActivityType> getTypesByCategory(Long categoryId) {
         return typeRepository.findByCategory_Id(categoryId);
     }
+    @Override
+    public ActivityType getTypeById(Long id) {
+        return typeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("ActivityType not found: " + id));
+    }
 }
