@@ -15,6 +15,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
+    @PreAuthorize("permitAll()") 
     public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
         User user = new User(null, request.getName(), request.getEmail(), 
                            request.getPassword(), "USER", null);
