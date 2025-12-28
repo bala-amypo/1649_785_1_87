@@ -14,15 +14,13 @@ public class ActivityTypeController {
 
     @Autowired
     private ActivityTypeService typeService;
-
-    // POST: Create new ActivityType
-    @PostMapping
+    @PostMapping("/category/{categoryId}")
     public ResponseEntity<ActivityType> createType(@RequestBody ActivityType type) {
         ActivityType created = typeService.createType(type);
         return ResponseEntity.ok(created);
     }
 
-    // GET: All types by Category ID (matches your test t43)
+
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ActivityType>> getTypesByCategory(@PathVariable Long categoryId) {
         List<ActivityType> types = typeService.getTypesByCategory(categoryId);
