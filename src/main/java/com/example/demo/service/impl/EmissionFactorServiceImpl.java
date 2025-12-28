@@ -9,21 +9,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmissionFactorServiceImpl implements EmissionFactorService {
-
     private final ActivityTypeRepository typeRepository;
     private final EmissionFactorRepository factorRepository;
 
-    public EmissionFactorServiceImpl(ActivityTypeRepository typeRepository, 
-                                     EmissionFactorRepository factorRepository) {
+    public EmissionFactorServiceImpl(ActivityTypeRepository typeRepository, EmissionFactorRepository factorRepository) {
         this.typeRepository = typeRepository;
         this.factorRepository = factorRepository;
     }
 
     @Override
-    public EmissionFactor getFactorByType(Long typeId) {
-        typeRepository.findById(typeId).orElse(null); // Ensure type exists
-        
-        return factorRepository.findByActivityType_Id(typeId)
+    public EmissionFactor getFactorByType(Long activityTypeId) {
+        return factorRepository.findByActivityType_Id(activityTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Emission factor not found"));
     }
 }

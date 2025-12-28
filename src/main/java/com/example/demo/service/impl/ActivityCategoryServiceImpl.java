@@ -6,12 +6,10 @@ import com.example.demo.exception.ValidationException;
 import com.example.demo.repository.ActivityCategoryRepository;
 import com.example.demo.service.ActivityCategoryService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class ActivityCategoryServiceImpl implements ActivityCategoryService {
-
     private final ActivityCategoryRepository categoryRepository;
 
     public ActivityCategoryServiceImpl(ActivityCategoryRepository categoryRepository) {
@@ -23,7 +21,6 @@ public class ActivityCategoryServiceImpl implements ActivityCategoryService {
         if (categoryRepository.existsByCategoryName(category.getCategoryName())) {
             throw new ValidationException("Category name must be unique");
         }
-        category.prePersist();
         return categoryRepository.save(category);
     }
 
