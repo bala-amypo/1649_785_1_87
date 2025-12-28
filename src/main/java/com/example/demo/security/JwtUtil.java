@@ -1,32 +1,34 @@
 // src/main/java/com/example/demo/security/JwtUtil.java
 package com.example.demo.security;
 
+import com.example.demo.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
-import java.security.Key;
+
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long EXPIRATION_TIME = 86400000; // 24 hours
 
     public String generateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(key)
+                .claims(claims)
+                .subject(subject)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(secretKey)
                 .compact();
     }
 
-    public String generateTokenForUser(com.example.demo.entity.User user) {
+    public String generateTokenForUser(User user) {
         Map<String, Object> claims = Map.of(
             "userId", user.getId(),
             "email", user.getEmail(),
@@ -40,23 +42,28 @@ public class JwtUtil {
     }
 
     public String extractRole(String token) {
-        return extractClaim(token, claims -> (String) claims.get("role"));
+        return extractClaim(token, claims -> claims.get("role", String.class));
     }
 
     public Long extractUserId(String token) {
-        return extractClaim(token, claims -> {
-            Object id = claims.get("userId");
-            return id instanceof Number ? ((Number) id).longValue() : Long.valueOf(id.toString());
-        });
+        Object idObj = extractAllClaims(token).get("userId");
+        if (idObj instanceof Number) {
+            return ((Number) idObj).longValue();
+        }
+        return Long.valueOf(idObj.toString());
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = parseToken(token).getPayload();
+        final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
-    public io.jsonwebtoken.Jwt<io.jsonwebtoken.Header, Claims> parseToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parse(token);
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     public boolean isTokenValid(String token, String username) {
