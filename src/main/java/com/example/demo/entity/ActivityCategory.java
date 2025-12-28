@@ -1,3 +1,4 @@
+// src/main/java/com/example/demo/entity/ActivityCategory.java
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
@@ -10,6 +11,7 @@ public class ActivityCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(unique = true)
     private String categoryName;
     private String description;
     private LocalDateTime createdAt;
@@ -24,13 +26,13 @@ public class ActivityCategory {
     }
 
     @PrePersist
-    public void prePersist() {
+    protected void prePersist() {
         if (createdAt == null) {
             createdAt = LocalDateTime.now();
         }
     }
 
-    // Getters/Setters
+    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getCategoryName() { return categoryName; }
