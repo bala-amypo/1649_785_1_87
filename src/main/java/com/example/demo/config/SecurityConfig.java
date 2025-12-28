@@ -20,4 +20,22 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(authz -> authz
+                // Public endpoints
+                .requestMatchers("/api/users/register", "/api/users/login").permitAll()
+                .requestMatchers("/api/activity-types/**").permitAll()
+                .requestMatchers("/api/logs/**").permitAll()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()  // Swagger
+                // Everything else requires auth
+                .anyRequest().authenticated()
+            )
+            .csrf(csrf -> csrf.disable())
+            .httpBasic(Customizer.withDefaults());
+        return http.build();
+    }
+}
+
 }
