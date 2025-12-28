@@ -38,20 +38,16 @@ public class JwtUtil {
         return extractAllClaims(token).get("role", String.class);
     }
 
-    
+    // FIXED: Use existing extractAllClaims instead of manual parsing
     public String parseToken(String token) {
         try {
-            String[] parts = token.split("\\.");
-            if (parts.length >= 2) {
-                String payload = new String(Base64.getUrlDecoder().decode(parts[1].replace('-', '+').replace('_', '/')));
-                Claims claims = Jwts.parser().setSigningKey("your-secret-key").parseClaimsJwt(payload).getBody();
-                return claims.getSubject();  // Returns username as String
-            }
-            return null;
+            Claims claims = extractAllClaims(token);
+            return claims.getSubject();
         } catch (Exception e) {
             return null;
         }
     }
+
     public Long extractUserId(String token) {
         return extractAllClaims(token).get("userId", Long.class);
     }
