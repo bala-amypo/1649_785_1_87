@@ -1,3 +1,4 @@
+// src/main/java/com/example/demo/controller/ActivityLogController.java
 package com.example.demo.controller;
 
 import com.example.demo.dto.ActivityLogRequest;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Tag(name = "Activity Logs", description = "Activity log management APIs")
+@Tag(name = "Activity Logs")
 @RestController
 @RequestMapping("/api/logs")
 public class ActivityLogController {
@@ -28,6 +29,13 @@ public class ActivityLogController {
                                                   @RequestBody ActivityLogRequest request) {
         ActivityLog log = logService.logActivity(userId, typeId, request);
         return ResponseEntity.ok(log);
+    }
+
+    @Operation(summary = "Get logs by user")
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ActivityLog>> getLogsByUser(@PathVariable Long userId) {
+        List<ActivityLog> logs = logService.getLogsByUser(userId);
+        return ResponseEntity.ok(logs);
     }
 
     @Operation(summary = "Get logs by user and date range")

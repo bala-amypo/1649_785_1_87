@@ -1,34 +1,29 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.ActivityType;
-import com.example.demo.repository.ActivityTypeRepository;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.example.demo.service.ActivityTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Activity Types", description = "Activity type management APIs")
 @RestController
-@RequestMapping("/api/types")
+@RequestMapping("/api/activity-types")
 public class ActivityTypeController {
 
     @Autowired
-    private ActivityTypeRepository typeRepository;
-
-    @Operation(summary = "Get types by category ID")
-    @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<ActivityType>> getTypesByCategory(@PathVariable Long categoryId) {
-        List<ActivityType> types = typeRepository.findByCategory_Id(categoryId);
-        return ResponseEntity.ok(types);
+    private ActivityTypeService typeService;
+    @PostMapping("/category/{categoryId}")
+    public ResponseEntity<ActivityType> createType(@RequestBody ActivityType type) {
+        ActivityType created = typeService.createType(type);
+        return ResponseEntity.ok(created);
     }
 
-    @Operation(summary = "Get all activity types")
-    @GetMapping
-    public ResponseEntity<List<ActivityType>> getAllTypes() {
-        List<ActivityType> types = typeRepository.findAll();
+
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ActivityType>> getTypesByCategory(@PathVariable Long categoryId) {
+        List<ActivityType> types = typeService.getTypesByCategory(categoryId);
         return ResponseEntity.ok(types);
     }
 }
