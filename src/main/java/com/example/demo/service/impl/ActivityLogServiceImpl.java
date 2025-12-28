@@ -47,7 +47,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         log.setUser(user);
         log.setActivityType(type);
         log.setEstimatedEmission(estimated);
-        log.prePersist();
+        log.setLoggedAt(LocalDateTime.now());
 
         return logRepository.save(log);
     }

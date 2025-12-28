@@ -24,12 +24,13 @@ public class ActivityLogController {
 
     @Operation(summary = "Log new activity")
     @PostMapping("/user/{userId}/type/{typeId}")
-    public ResponseEntity<ActivityLog> logActivity(@PathVariable Long userId, 
-                                                  @PathVariable Long typeId,
-                                                  @RequestBody ActivityLogRequest request) {
-        ActivityLog log = logService.logActivity(userId, typeId, request);
-        return ResponseEntity.ok(log);
-    }
+public ResponseEntity<ActivityLog> logActivity(@PathVariable Long userId, 
+                                              @PathVariable Long typeId,
+                                              @RequestBody ActivityLogRequest request) {  // ✅ Keep ActivityLogRequest
+    ActivityLog log = logService.logActivity(userId, typeId, request);  // ✅ Pass request directly
+    return ResponseEntity.ok(log);
+}
+
 
     @Operation(summary = "Get logs by user")
     @GetMapping("/user/{userId}")
