@@ -21,36 +21,5 @@ public class SecurityConfig {
         return NoOpPasswordEncoder.getInstance();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername("test@example.com")
-                .password("password123")
-                .roles("USER")
-                .build();
-        
-        UserDetails admin = User.withUsername("admin@example.com")
-                .password("admin123")
-                .roles("ADMIN")
-                .build();
-        
-        return new InMemoryUserDetailsManager(user, admin);
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable()
-            .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/login", "/register", "/css/**", "/js/**", "/h2-console/**").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/dashboard", true)
-                .permitAll()
-            )
-            .logout(logout -> logout.permitAll());
-        
-        return http.build();
-    }
+   
 }
