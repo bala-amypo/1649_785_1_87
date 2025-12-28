@@ -38,11 +38,37 @@ public class JwtUtil {
         return extractAllClaims(token).get("role", String.class);
     }
 
-    // FIXED: Use existing extractAllClaims instead of manual parsing
     public String parseToken(String token) {
         try {
-            Claims claims = extractAllClaims(token);
-            return claims.getSubject();
+            // If you want to parse the token manually without validation
+            String[] parts = token.split("\\.");
+            if (parts.length >= 2) {
+                String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
+                // Simple JSON parsing or use a JSON library if you need the claims
+                // This method is useful for debugging but shouldn't be used for actual validation
+                return "Parsed manually - use extractUsername() for validated extraction";
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // Alternative: If you want to parse and decode without validation
+    public Claims parseTokenWithoutValidation(String token) {
+        try {
+            String[] parts = token.split("\\.");
+            if (parts.length >= 2) {
+                String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
+                // For simple manual parsing, you'd need to parse the JSON
+                // But if you want the Claims object, use the proper parsing with key:
+                return Jwts.parser()
+                        .verifyWith(secretKey)
+                        .build()
+                        .parseSignedClaims(token)
+                        .getPayload();
+            }
+            return null;
         } catch (Exception e) {
             return null;
         }
