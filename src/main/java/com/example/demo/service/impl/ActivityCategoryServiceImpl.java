@@ -7,8 +7,6 @@ import com.example.demo.repository.ActivityCategoryRepository;
 import com.example.demo.service.ActivityCategoryService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class ActivityCategoryServiceImpl implements ActivityCategoryService {
 
@@ -23,12 +21,12 @@ public class ActivityCategoryServiceImpl implements ActivityCategoryService {
         if (categoryRepository.existsByCategoryName(category.getCategoryName())) {
             throw new ValidationException("Category name must be unique");
         }
-        category.prePersist(); // Set createdAt
+        category.prePersist();
         return categoryRepository.save(category);
     }
 
     @Override
-    public List<ActivityCategory> getAllCategories() {
+    public java.util.List<ActivityCategory> getAllCategories() {
         return categoryRepository.findAll();
     }
 
