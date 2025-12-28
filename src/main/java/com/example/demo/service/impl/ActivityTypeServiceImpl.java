@@ -14,7 +14,8 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     private final ActivityTypeRepository typeRepository;
     private final ActivityCategoryRepository categoryRepository;
 
-    public ActivityTypeServiceImpl(ActivityTypeRepository typeRepository, ActivityCategoryRepository categoryRepository) {
+    public ActivityTypeServiceImpl(ActivityTypeRepository typeRepository,
+                                   ActivityCategoryRepository categoryRepository) {
         this.typeRepository = typeRepository;
         this.categoryRepository = categoryRepository;
     }
