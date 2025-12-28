@@ -37,4 +37,12 @@ public class ActivityLogController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
         return ResponseEntity.ok(logService.getLogsByUserAndDate(userId, start, end));
     }
+    
+@GetMapping("/{id}")
+public ResponseEntity<ActivityLog> getLogById(@PathVariable Long id) {
+    ActivityLog log = logRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("ActivityLog not found: " + id));
+    return ResponseEntity.ok(log);
+}
+
 }
