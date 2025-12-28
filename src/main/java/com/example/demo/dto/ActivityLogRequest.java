@@ -1,4 +1,4 @@
-// com/example/demo/dto/ActivityLogRequest.java
+// src/main/java/com/example/demo/dto/ActivityLogRequest.java
 package com.example.demo.dto;
 
 import java.time.LocalDate;
@@ -14,11 +14,9 @@ public class ActivityLogRequest {
         this.activityDate = activityDate;
     }
 
+    // Getters and setters
     public Double getQuantity() { return quantity; }
-
     public void setQuantity(Double quantity) { this.quantity = quantity; }
-
     public LocalDate getActivityDate() { return activityDate; }
-
     public void setActivityDate(LocalDate activityDate) { this.activityDate = activityDate; }
 }
