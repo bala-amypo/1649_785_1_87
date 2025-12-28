@@ -40,8 +40,7 @@ public class ActivityLogController {
     
 @GetMapping("/{id}")
 public ResponseEntity<ActivityLog> getLogById(@PathVariable Long id) {
-    ActivityLog log = logService.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("ActivityLog not found: " + id));
+    ActivityLog log = logService.getLogById(id);  // ✅ Now works!
     return ResponseEntity.ok(log);
 }
 
