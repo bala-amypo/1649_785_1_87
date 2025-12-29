@@ -8,11 +8,14 @@ import com.example.demo.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
+@Operation(security = {})
 public class AuthController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
