@@ -13,18 +13,14 @@ public class ActivityTypeController {
     private final ActivityTypeRepository typeRepository;
     private final ActivityTypeService typeService;
 
-    public ActivityTypeController(ActivityTypeRepository typeRepository) {
+    public ActivityTypeController(ActivityTypeRepository typeRepository, ActivityTypeService typeService) {
         this.typeRepository = typeRepository;
+        this.typeService = typeService;
     }
 
     @GetMapping("/category/{categoryId}")
     public List<ActivityType> getTypesByCategory(@PathVariable Long categoryId) {
         return typeRepository.findByCategory_Id(categoryId);
-    }
-    
-
-    public ActivityTypeController(ActivityTypeService typeService) {
-        this.typeService = typeService;
     }
 
     @PostMapping("/category/{categoryId}")
@@ -38,4 +34,6 @@ public class ActivityTypeController {
                 request.getUnit()
         );
     }
+}
+
 }
