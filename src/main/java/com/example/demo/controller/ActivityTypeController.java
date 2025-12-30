@@ -11,6 +11,7 @@ import java.util.List;
 @RequestMapping("/api/types")
 public class ActivityTypeController {
     private final ActivityTypeRepository typeRepository;
+    private final ActivityTypeService typeService;
 
     public ActivityTypeController(ActivityTypeRepository typeRepository) {
         this.typeRepository = typeRepository;
@@ -21,7 +22,6 @@ public class ActivityTypeController {
         return typeRepository.findByCategory_Id(categoryId);
     }
     
-    private final ActivityTypeService typeService;
 
     public ActivityTypeController(ActivityTypeService typeService) {
         this.typeService = typeService;
