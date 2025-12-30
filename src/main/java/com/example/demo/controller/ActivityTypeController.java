@@ -18,4 +18,15 @@ public class ActivityTypeController {
     public List<ActivityType> getTypesByCategory(@PathVariable Long categoryId) {
         return typeRepository.findByCategory_Id(categoryId);
     }
+    @PostMapping("/category/{categoryId}")
+    public ActivityType createType(
+            @PathVariable Long categoryId,
+            @RequestBody ActivityTypeRequest request) {
+
+        return typeService.createType(
+                categoryId,
+                request.getTypeName(),
+                request.getUnit()
+        );
+    }
 }
