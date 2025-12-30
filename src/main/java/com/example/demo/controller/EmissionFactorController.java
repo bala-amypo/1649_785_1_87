@@ -15,14 +15,18 @@ public class EmissionFactorController {
         this.factorService = factorService;
     }
 
-    // ✅ POST /api/factors/{activityTypeId}
     @PostMapping("/{activityTypeId}")
-    public EmissionFactor createFactor(
-            @PathVariable Long activityTypeId,
-            @RequestBody EmissionFactorRequest request) {
+public EmissionFactor createFactor(
+        @PathVariable Long activityTypeId,
+        @RequestBody EmissionFactorRequest request) {
 
-        return factorService.createFactor(activityTypeId, request.getFactor());
-    }
+    return factorService.createFactor(
+            activityTypeId,
+            request.getFactorValue(),
+            request.getUnit()          // ✅ FIX
+    );
+}
+
 
     @GetMapping("/type/{typeId}")
     public EmissionFactor getFactorByType(@PathVariable Long typeId) {

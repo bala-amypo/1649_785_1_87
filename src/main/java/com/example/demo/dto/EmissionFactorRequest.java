@@ -1,9 +1,13 @@
-package com.example.demo.dto;
-
 public class EmissionFactorRequest {
-    private Double factor;
 
-    public Double getFactor() {
-        return factor;
+    private Double factorValue;
+    private String unit;
+
+    public Double getFactorValue() {
+        return factorValue;
+    }
+
+    public String getUnit() {
+        return unit;
     }
 }
