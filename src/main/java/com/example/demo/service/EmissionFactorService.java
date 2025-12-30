@@ -7,5 +7,5 @@ public interface EmissionFactorService {
     EmissionFactor getFactorByType(Long activityTypeId);
 
     // ✅ ADD
-    EmissionFactor createFactor(Long activityTypeId, Double factor);
+    EmissionFactor createFactor(Long activityTypeId, Double factorValue);
 }
