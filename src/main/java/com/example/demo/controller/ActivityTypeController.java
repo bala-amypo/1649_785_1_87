@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.ActivityType;
+import com.example.demo.dto.ActivityTypeRequest;
 import com.example.demo.repository.ActivityTypeRepository;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ActivityTypeController {
             @PathVariable Long categoryId,
             @RequestBody ActivityTypeRequest request) {
 
-        return typeService.createType(
+        return typeRepository.createType(
                 categoryId,
                 request.getTypeName(),
                 request.getUnit()
