@@ -22,4 +22,17 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
         return factorRepository.findByActivityType_Id(activityTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Emission factor not found"));
     }
+    @Override
+public EmissionFactor createFactor(Long activityTypeId, Double factor) {
+
+    var activityType = typeRepository.findById(activityTypeId)
+            .orElseThrow(() -> new ResourceNotFoundException("Activity type not found"));
+
+    EmissionFactor emissionFactor = new EmissionFactor();
+    emissionFactor.setFactor(factor);
+    emissionFactor.setActivityType(activityType);
+
+    return factorRepository.save(emissionFactor);
+}
+
 }
